@@ -1,0 +1,1 @@
+from .serie_model import SerieModel
