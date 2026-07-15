@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catalogo de Series</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+    <main>
+        <h1>Catalogo de Series</h1>
+
+        <section class="card" id="auth-section">
+            <h2>Autenticacao</h2>
+            <div class="split">
+                <div>
+                    <h3>Registrar</h3>
+                    <form id="register-form">
+                        <input type="text" name="nome" placeholder="Nome" required minlength="3" />
+                        <input type="email" name="email" placeholder="E-mail" required />
+                        <input type="password" name="senha" placeholder="Senha" required minlength="8" />
+                        <button type="submit">Registrar</button>
+                    </form>
+                </div>
+                <div>
+                    <h3>Login</h3>
+                    <form id="login-form">
+                        <input type="email" name="email" placeholder="E-mail" required />
+                        <input type="password" name="senha" placeholder="Senha" required />
+                        <button type="submit">Entrar</button>
+                    </form>
+                </div>
+            </div>
+            <p id="auth-message" class="message"></p>
+        </section>
+
+        <section class="card" id="series-section">
+            <h2>Buscar series</h2>
+            <form id="filter-form" class="filter-form">
+                <input type="text" name="genero" placeholder="Genero" />
+                <input type="number" name="ano_lancamento" placeholder="Ano de lancamento" min="1900" />
+                <button type="submit">Buscar</button>
+                <button type="button" id="clear-filter">Limpar</button>
+            </form>
+
+            <div class="card" id="create-series-card">
+                <h3>Adicionar nova serie</h3>
+                <form id="create-form">
+                    <input type="text" name="titulo" placeholder="Titulo" required />
+                    <input type="text" name="genero" placeholder="Genero" required />
+                    <input type="number" name="ano_lancamento" placeholder="Ano de lancamento" min="1900" required />
+                    <input type="number" name="temporadas" placeholder="Temporadas" min="1" required />
+                    <textarea name="sinopse" placeholder="Sinopse" rows="3" required></textarea>
+                    <button type="submit">Adicionar serie</button>
+                </form>
+                <p id="create-message" class="message"></p>
+            </div>
+
+            <h3>Lista de series</h3>
+            <div id="series-list" class="series-list"></div>
+        </section>
+    </main>
+
+    <!-- Modal de Edicao -->
+    <div id="edit-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Editar serie</h2>
+            <form id="edit-form">
+                <input type="hidden" id="edit-serie-id" />
+                <input type="text" name="titulo" placeholder="Titulo" required />
+                <input type="text" name="genero" placeholder="Genero" required />
+                <input type="number" name="ano_lancamento" placeholder="Ano de lancamento" min="1900" required />
+                <input type="number" name="temporadas" placeholder="Temporadas" min="1" required />
+                <textarea name="sinopse" placeholder="Sinopse" rows="3" required></textarea>
+                <div class="modal-buttons">
+                    <button type="submit">Salvar alteracoes</button>
+                    <button type="button" id="cancel-edit">Cancelar</button>
+                </div>
+            </form>
+            <p id="edit-message" class="message"></p>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmacao de Delecao -->
+    <div id="delete-modal" class="modal hidden">
+        <div class="modal-content modal-small">
+            <h2>Confirmar delecao</h2>
+            <p id="delete-confirm-text"></p>
+            <div class="modal-buttons">
+                <button type="button" id="confirm-delete" class="btn-danger">Deletar</button>
+                <button type="button" id="cancel-delete">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

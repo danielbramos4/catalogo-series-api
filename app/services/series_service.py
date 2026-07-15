@@ -14,8 +14,12 @@ def criar_serie(db: Session, dados: SerieCreate):
     return cadastrar_serie(db, dados)
 
 
-def obter_series(db: Session):
-    return listar_series(db)
+def obter_series(
+    db: Session,
+    genero: str | None = None,
+    ano_lancamento: int | None = None,
+):
+    return listar_series(db, genero, ano_lancamento)
 
 
 def obter_serie(db: Session, serie_id: int):

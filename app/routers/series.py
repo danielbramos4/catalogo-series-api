@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-
+from app.dependencies.auth import get_current_user
 from app.database import get_db
 from app.schemas import Serie, SerieCreate
 
@@ -25,7 +25,8 @@ router = APIRouter(
 )
 def criar_serie(
     serie: SerieCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    usuario = Depends(get_current_user),
 ):
     return criar_serie_service(db, serie)
 
@@ -35,9 +36,11 @@ def criar_serie(
     response_model=list[Serie]
 )
 def listar_series(
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    genero: str | None = None,
+    ano_lancamento: int | None = None,
 ):
-    return obter_series_service(db)
+    return obter_series_service(db, genero, ano_lancamento)
 
 
 @router.get(
@@ -66,7 +69,8 @@ def buscar_serie(
 def atualizar_serie(
     serie_id: int,
     dados: SerieCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    usuario = Depends(get_current_user),
 ):
     serie = editar_serie_service(
         db,
@@ -88,7 +92,8 @@ def atualizar_serie(
 )
 def excluir_serie(
     serie_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    usuario = Depends(get_current_user),
 ):
     removida = remover_serie_service(
         db,

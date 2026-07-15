@@ -4,8 +4,20 @@ from app.models import SerieModel
 from app.schemas import SerieCreate
 
 
-def listar_series(db: Session):
-    return db.query(SerieModel).all()
+def listar_series(
+    db: Session,
+    genero: str | None = None,
+    ano_lancamento: int | None = None,
+):
+    query = db.query(SerieModel)
+
+    if genero is not None:
+        query = query.filter(SerieModel.genero == genero)
+
+    if ano_lancamento is not None:
+        query = query.filter(SerieModel.ano_lancamento == ano_lancamento)
+
+    return query.all()
 
 
 def buscar_serie_por_id(db: Session, serie_id: int):
